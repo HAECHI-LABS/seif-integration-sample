@@ -130,3 +130,5 @@ dist
 .pnp.*
 
 certificates
+
+.DS_Store
