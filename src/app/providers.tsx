@@ -53,14 +53,19 @@ function seifWallet(): Wallet {
     },
     createConnector: createInjectedConnector(injectedProvider),
   };
-};
+}
 
 function getExplicitInjectedProvider(flag: string) {
-  if (typeof window === "undefined" || typeof window.ethereum === "undefined")
-    return;
-  return window.ethereum[flag]
-    ? window.ethereum
-    : undefined;
+  if (typeof window === "undefined") return;
+  if (window.ethereum && window.ethereum[flag]) {
+    return window.ethereum;
+  }
+
+  if ((window as any)[flag]) {
+    return (window as any)[flag];
+  }
+
+  return undefined;
 }
 
 function createInjectedConnector(provider?: any): CreateConnector {
@@ -83,4 +88,3 @@ function createInjectedConnector(provider?: any): CreateConnector {
     }));
   };
 }
-
