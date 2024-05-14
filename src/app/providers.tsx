@@ -10,13 +10,14 @@ import { Wallet, WalletDetailsParams } from "@rainbow-me/rainbowkit";
 import { CreateConnector } from "@rainbow-me/rainbowkit/dist/wallets/Wallet";
 import { createConnector } from "wagmi";
 import { injected } from "wagmi/connectors";
+import { useEffect } from "react";
 
 const wagmiConfig = getDefaultConfig({
   appName: "YOUR_APP_NAME",
   projectId: "YOUR_PROJECT_ID",
   wallets: [
     {
-      groupName: "Sei Native",
+      groupName: "Recommended",
       wallets: [seifWallet],
     },
   ],
@@ -30,6 +31,17 @@ const wagmiConfig = getDefaultConfig({
 const queryClient = new QueryClient();
 
 export function Providers({ children }: { children: React.ReactNode }) {
+  useEffect(() => {
+    window.addEventListener("eip6963:announceProvider", (event: any) => {
+      const announcedProvider = {
+        ...event.detail,
+        connected: false,
+        accounts: [],
+      };
+      console.log(announcedProvider);
+    });
+  }, []);
+
   return (
     <WagmiProvider config={wagmiConfig}>
       <QueryClientProvider client={queryClient}>
@@ -40,7 +52,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 }
 
 function seifWallet(): Wallet {
-  const injectedProvider = getExplicitInjectedProvider("__seif");
+  const injectedProvider = getExplicitInjectedProvider();
   return {
     id: "seif",
     name: "Seif",
@@ -55,14 +67,14 @@ function seifWallet(): Wallet {
   };
 }
 
-function getExplicitInjectedProvider(flag: string) {
+function getExplicitInjectedProvider() {
   if (typeof window === "undefined") return;
-  if (window.ethereum && window.ethereum[flag]) {
+  if (window.ethereum && window.ethereum["__seif"]) {
     return window.ethereum;
   }
 
-  if ((window as any)[flag]) {
-    return (window as any)[flag];
+  if ((window as any)["__seif"]) {
+    return (window as any)["__seif"];
   }
 
   return undefined;
