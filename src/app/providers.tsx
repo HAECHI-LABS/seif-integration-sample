@@ -64,6 +64,7 @@ function seifWallet(): Wallet {
         "https://chromewebstore.google.com/detail/seif/albakdmmdafeafbehmcpoejenbeojejl",
     },
     createConnector: createInjectedConnector(injectedProvider),
+    rdns: "com.passkeywallet.seif",
   };
 }
 
