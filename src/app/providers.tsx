@@ -11,6 +11,10 @@ import { CreateConnector } from "@rainbow-me/rainbowkit/dist/wallets/Wallet";
 import { createConnector } from "wagmi";
 import { injected } from "wagmi/connectors";
 import { useEffect } from "react";
+import {
+  metaMaskWallet,
+  walletConnectWallet,
+} from "@rainbow-me/rainbowkit/wallets";
 
 const wagmiConfig = getDefaultConfig({
   appName: "YOUR_APP_NAME",
@@ -18,7 +22,7 @@ const wagmiConfig = getDefaultConfig({
   wallets: [
     {
       groupName: "Recommended",
-      wallets: [seifWallet],
+      wallets: [seifWallet, metaMaskWallet, walletConnectWallet],
     },
   ],
   chains: [ARCTIC_1_VIEM_CHAIN],
