@@ -17,4 +17,4 @@ If you are developing with Create React App, please refer to the link below:
 https://create-react-app.dev/docs/using-https-in-development/
 
 If you are using the Vite bundler, please refer to the link below:
-https://ko.vitejs.dev/config/server-options#server-https
+https://vitejs.dev/config/server-options#server-https
