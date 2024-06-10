@@ -132,3 +132,4 @@ dist
 certificates
 
 .DS_Store
+.vercel
